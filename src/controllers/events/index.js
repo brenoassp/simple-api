@@ -1,20 +1,32 @@
 const Event = require("../../models/event");
+const AutoComplete = require("../../autocomplete");
 
 const addEvent = async (req, res) => {
-    console.log(req.body);
+  AutoComplete.then(async (obj) => {
     const event = new Event({
-        event: req.body.event
+      event: req.body.event
     });
+    await obj.addEvent(event);
+    res.status(201).json(event);
+  });
+};
 
-    try {
-        const newEvent = await event.save();
-        res.status(201).json(newEvent);
-        res.send('evento adicionado :)');
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-    res.send('asdq');
-    
+const listEvent = async (req, res) => {
+  let { prefix } = req.params;
+  if (prefix) {
+    AutoComplete.then(obj => {
+      obj.getCompletions(prefix).then(completions => {
+        res.status(200).json(completions);
+      });
+    });
+    return;
+  }
+  AutoComplete.then((obj) => {
+    obj.getAllEvents().then((events) => {
+      res.status(200).json(events);
+    });
+  });
 };
 
 exports.addEvent = addEvent;
+exports.listEvent = listEvent;

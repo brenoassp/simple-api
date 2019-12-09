@@ -7,6 +7,7 @@
     "start": "nodemon --exec babel-node src/app.js"
   },
   "dependencies": {
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -14,7 +15,8 @@
     "http-errors": "~1.6.3",
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.13",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",

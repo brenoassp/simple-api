@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        var BASE_URL = 'http://localhost:9001/api/events/'
+        var events = [];
+        
+        $(function () {
+            var getCompletions = function (prefix) {
+                if (prefix.length > 1) {
+                    var url = BASE_URL + prefix;
+                    $.ajax(url, {
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#result").empty();
+                            var html = "<ul>";
+                            for (var index = 0; index < data.length; index++) {
+                                var word = data[index];
+                                html += "<li>" + word + "</li>";
+                            }
+                            html += "</ul>";
+                            $("#result").append(html);
+                            return data;
+                        }
+                    });
+                }   
+            }
+
+            $('#name').keyup(function() {
+                var prefix = $(this).val();
+                getCompletions(prefix);
+                console.log('getCompletions called with this prefix: ' + prefix);
+            })
+            
+        });
+    </script>
+</head>
+
+<body>
+    <label for="name">Event: </label>
+    <input id="name">
+
+    <div id="result">
+
+    </div>
+</body>
+
+</html>
