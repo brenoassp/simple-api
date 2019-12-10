@@ -1,18 +1,21 @@
+# API de Auto Complete
 
-#  Passos para execução do projeto
+Esse Auto Complete foi criado utilizando o Mongo DB como banco de dados para armazenar todos os eventos e o Redis como banco de dados em memória para realizar o cache. Como um serviço de auto complete necessita ter um tempo de resposta baixo [abaixo de 100 milisegundos](https://blog.algolia.com/search-autocomplete-on-mobile/) todas as requisições para o endpoint busca as informações diretamente do cache.
 
-## Clone o repositório
+##  Passos para execução do projeto
+
+### Clone o repositório
 `git clone git@github.com:brenoassp/simple-api.git`
 
-## Instale as dependências do projeto
+### Instale as dependências do projeto
 
-### Dependências externas ao projeto
+#### Dependências externas ao projeto
 - MongoDB (banco de dados NoSQL)
 - Redis (banco de dados em memória para cache)
 
 Ambos os bancos são configurados no arquivo `src/config/index.js`. Instalei os dois pelo gerendiador de pacotes do sistema operacional e utilizei as configurações de host e porta padrão.
 
-#### Exemplo para a instação no ubuntu
+##### Exemplo para a instação no ubuntu
 
 **MongoDB**
 
@@ -22,7 +25,7 @@ Ambos os bancos são configurados no arquivo `src/config/index.js`. Instalei os 
 
 `sudo apt-get install redis-server`
 
-#### Execute o serviço dos dois bancos após instalá-los
+##### Execute o serviço dos dois bancos após instalá-los
 
 **Redis** 
 
@@ -32,24 +35,24 @@ Ambos os bancos são configurados no arquivo `src/config/index.js`. Instalei os 
 
 `mongod`
 
-### Dependências internas do projeto
+#### Dependências internas do projeto
 As dependências internas dos projetos estão definidas no arquivo `packages.json` e para instalá-las basta executar o comando `npm install`.
 
-## Execute o projeto
+### Execute o projeto
 
 `npm run start`
 
-## Testando o autocomplete
+### Testando o autocomplete
 
 Abra o arquivo `public/index.html` e digite um prefixo para pesquisar as possíveis palavras que completam o prefixo. O número de possíveis palavras para completar foi limitado em 20.
 
-# Informações adicionais sobre o projeto
+## Informações adicionais sobre o projeto
 
-## API
+### API
 
 A aplicação consiste em uma API que contém dois endpoints.
 
-### POST /api/events
+#### POST /api/events
 
 Recebe um parâmetro `event` no body como `x-www-form-urlencoded` que será o nome do novo evento a ser cadastrado.
 
@@ -57,7 +60,7 @@ Recebe um parâmetro `event` no body como `x-www-form-urlencoded` que será o no
 	event: 'name new event'
 }`
 
-### GET /api/events/:prefix
+#### GET /api/events/:prefix
 
 `:prefix` é substituído pelo prefixo digitado pelo usuário.
 
